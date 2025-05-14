@@ -22,12 +22,19 @@ public class AlunoControle {
     public Aluno salvarAluno(@RequestBody Aluno novoAluno){
         return service.criarAluno(novoAluno);
     }
-    @DeleteMapping
+    @DeleteMapping("/id")
     public void excluirAluno(@PathVariable long id){
         service.deletarAluno(id);
     }
     @GetMapping("/id")
-    public Aluno buscaAlunoPOrID(@PathVariable Long id){
-        return service.buscarAlunoId(id);
+    public Aluno buscaAlunoPOrID(@PathVariable Long id,@RequestBody Aluno alteraAluno){
+        Aluno atualizado = service.buscarAlunoId(id);
+        if (atualizado == null) return null;
+
+        atualizado.setNome(alteraAluno.getNome());
+        atualizado.setEmail(alteraAluno.getEmail());
+        atualizado.setTelefone(alteraAluno.getTelefone());
+
+     return service.criarAluno(alteraAluno);
     }
 }
