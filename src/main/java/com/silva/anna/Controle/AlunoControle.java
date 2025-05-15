@@ -18,15 +18,18 @@ public class AlunoControle {
     public List<Aluno> buscarAlunos(){
         return service.listaDeAluno();
     }
+
     @PostMapping
     public Aluno salvarAluno(@RequestBody Aluno novoAluno){
         return service.criarAluno(novoAluno);
     }
-    @DeleteMapping("/id")
+
+    @DeleteMapping("/{id}")
     public void excluirAluno(@PathVariable long id){
         service.deletarAluno(id);
     }
-    @GetMapping("/id")
+
+    @PutMapping("/{id}")
     public Aluno buscaAlunoPOrID(@PathVariable Long id,@RequestBody Aluno alteraAluno){
         Aluno atualizado = service.buscarAlunoId(id);
         if (atualizado == null) return null;
